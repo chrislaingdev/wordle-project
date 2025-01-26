@@ -1,0 +1,81 @@
+body {
+  background-color: rgb(255, 255, 255);
+}
+
+header{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-text{
+  color: rgb(0, 0, 0);
+  margin: 0px;
+}
+
+.canvas-container{
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: blueviolet;
+  
+  
+}
+
+.myCanvas {
+  background-color: rgb(255, 255, 255);
+
+}
+
+
+
+.key-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+
+}
+
+
+
+.keys-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.letter-key{
+  background-color:  rgb(190, 190, 190);
+  font-size: 24px;
+  width: 44px;
+  height:60px;
+  border-radius: 4px;
+  margin : 10px 10px 4px 10px;
+  padding: 0px 4px;
+  display: flex;
+  flex-direction: row;
+  align-items:center;
+  justify-content: center;
+}
+.letter-key:hover{
+  background-color:  rgb(206, 206, 206);
+  cursor: pointer;
+}
+
+.letter-key:active{
+  background-color:  rgb(230, 230, 230);
+}
+
+.function-key {
+  padding: 0px 30px;
+
+}
+
+.key-text{
+  font-weight: bolder;
+}
+
+
+
