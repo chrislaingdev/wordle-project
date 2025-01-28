@@ -26,58 +26,63 @@ let currentLetterIndex = 0
 
 function drawBoard(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  
   // row 1 
 
-  ctx.rect(ROW_GAP,ROW_GAP,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 2 + SQUARE_SIZE ,ROW_GAP,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 3 + SQUARE_SIZE * 2,ROW_GAP,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 4 + SQUARE_SIZE * 3,ROW_GAP,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 5 + SQUARE_SIZE * 4,ROW_GAP,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP,ROW_GAP,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 2 + SQUARE_SIZE ,ROW_GAP,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 3 + SQUARE_SIZE * 2,ROW_GAP,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 4 + SQUARE_SIZE * 3,ROW_GAP,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 5 + SQUARE_SIZE * 4,ROW_GAP,SQUARE_SIZE, SQUARE_SIZE);
   
   //row 2
 
-  ctx.rect(ROW_GAP,ROW_GAP * 2 + SQUARE_SIZE ,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 2 + SQUARE_SIZE ,ROW_GAP * 2 + SQUARE_SIZE ,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 3 + SQUARE_SIZE * 2,ROW_GAP * 2 + SQUARE_SIZE ,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 4 + SQUARE_SIZE * 3,ROW_GAP * 2 + SQUARE_SIZE ,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 5 + SQUARE_SIZE * 4,ROW_GAP * 2 + SQUARE_SIZE ,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP,ROW_GAP * 2 + SQUARE_SIZE ,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 2 + SQUARE_SIZE ,ROW_GAP * 2 + SQUARE_SIZE ,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 3 + SQUARE_SIZE * 2,ROW_GAP * 2 + SQUARE_SIZE ,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 4 + SQUARE_SIZE * 3,ROW_GAP * 2 + SQUARE_SIZE ,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 5 + SQUARE_SIZE * 4,ROW_GAP * 2 + SQUARE_SIZE ,SQUARE_SIZE, SQUARE_SIZE);
   
   //row 3
-  ctx.rect(ROW_GAP,ROW_GAP * 3 + SQUARE_SIZE * 2,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 2 + SQUARE_SIZE ,ROW_GAP * 3 + SQUARE_SIZE * 2,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 3 + SQUARE_SIZE * 2,ROW_GAP * 3 + SQUARE_SIZE * 2,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 4 + SQUARE_SIZE * 3,ROW_GAP * 3 + SQUARE_SIZE * 2,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 5 + SQUARE_SIZE * 4,ROW_GAP * 3 + SQUARE_SIZE * 2,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP,ROW_GAP * 3 + SQUARE_SIZE * 2,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 2 + SQUARE_SIZE ,ROW_GAP * 3 + SQUARE_SIZE * 2,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 3 + SQUARE_SIZE * 2,ROW_GAP * 3 + SQUARE_SIZE * 2,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 4 + SQUARE_SIZE * 3,ROW_GAP * 3 + SQUARE_SIZE * 2,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 5 + SQUARE_SIZE * 4,ROW_GAP * 3 + SQUARE_SIZE * 2,SQUARE_SIZE, SQUARE_SIZE);
   
   //row 4
-  ctx.rect(ROW_GAP,ROW_GAP * 4 + SQUARE_SIZE * 3,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 2 + SQUARE_SIZE ,ROW_GAP * 4 + SQUARE_SIZE * 3,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 3 + SQUARE_SIZE * 2,ROW_GAP * 4 + SQUARE_SIZE * 3,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 4 + SQUARE_SIZE * 3,ROW_GAP * 4 + SQUARE_SIZE * 3,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 5 + SQUARE_SIZE * 4,ROW_GAP * 4 + SQUARE_SIZE * 3,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP,ROW_GAP * 4 + SQUARE_SIZE * 3,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 2 + SQUARE_SIZE ,ROW_GAP * 4 + SQUARE_SIZE * 3,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 3 + SQUARE_SIZE * 2,ROW_GAP * 4 + SQUARE_SIZE * 3,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 4 + SQUARE_SIZE * 3,ROW_GAP * 4 + SQUARE_SIZE * 3,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 5 + SQUARE_SIZE * 4,ROW_GAP * 4 + SQUARE_SIZE * 3,SQUARE_SIZE, SQUARE_SIZE);
   
   //row 5
-  ctx.rect(ROW_GAP,ROW_GAP * 5 + SQUARE_SIZE * 4,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 2 + SQUARE_SIZE ,ROW_GAP * 5 + SQUARE_SIZE * 4,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 3 + SQUARE_SIZE * 2,ROW_GAP * 5 + SQUARE_SIZE * 4,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 4 + SQUARE_SIZE * 3,ROW_GAP * 5 + SQUARE_SIZE * 4,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 5 + SQUARE_SIZE * 4,ROW_GAP * 5 + SQUARE_SIZE * 4,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP,ROW_GAP * 5 + SQUARE_SIZE * 4,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 2 + SQUARE_SIZE ,ROW_GAP * 5 + SQUARE_SIZE * 4,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 3 + SQUARE_SIZE * 2,ROW_GAP * 5 + SQUARE_SIZE * 4,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 4 + SQUARE_SIZE * 3,ROW_GAP * 5 + SQUARE_SIZE * 4,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 5 + SQUARE_SIZE * 4,ROW_GAP * 5 + SQUARE_SIZE * 4,SQUARE_SIZE, SQUARE_SIZE);
   
   //row 6
-  ctx.rect(ROW_GAP,ROW_GAP * 6 + SQUARE_SIZE * 5,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 2 + SQUARE_SIZE ,ROW_GAP * 6 + SQUARE_SIZE * 5,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 3 + SQUARE_SIZE * 2,ROW_GAP * 6 + SQUARE_SIZE * 5,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 4 + SQUARE_SIZE * 3,ROW_GAP * 6 + SQUARE_SIZE * 5,SQUARE_SIZE, SQUARE_SIZE);
-  ctx.rect(ROW_GAP * 5 + SQUARE_SIZE * 4,ROW_GAP * 6 + SQUARE_SIZE * 5,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP,ROW_GAP * 6 + SQUARE_SIZE * 5,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 2 + SQUARE_SIZE ,ROW_GAP * 6 + SQUARE_SIZE * 5,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 3 + SQUARE_SIZE * 2,ROW_GAP * 6 + SQUARE_SIZE * 5,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 4 + SQUARE_SIZE * 3,ROW_GAP * 6 + SQUARE_SIZE * 5,SQUARE_SIZE, SQUARE_SIZE);
+  ctx.strokeRect(ROW_GAP * 5 + SQUARE_SIZE * 4,ROW_GAP * 6 + SQUARE_SIZE * 5,SQUARE_SIZE, SQUARE_SIZE);
 
-  ctx.stroke();
+  //ctx.stroke();
 }
 
 
 
 function colorSquare(xCor, yCor, color){
+  ctx.lineWidth=0;
+  
 
   const colors = ["grey", "green", "yellow", "white"]
+  
 
   if (xCor > 4 || yCor > 5 || !colors.includes(color)){
     console.log("one or more parameters are not valid")
@@ -96,9 +101,9 @@ function colorSquare(xCor, yCor, color){
   
 
   if (xCor == 0 && yCor == 0){
+    
     ctx.fillRect(ROW_GAP ,ROW_GAP, SQUARE_SIZE, SQUARE_SIZE);
-    ctx.stroke();
-    ctx.endPath();
+
   } 
   else{
     if (xCor == 0){
@@ -114,10 +119,9 @@ function colorSquare(xCor, yCor, color){
       yCor =  ROW_GAP * yCor + SQUARE_SIZE * (yCor - 1)
     }
     ctx.fillRect(xCor, yCor,SQUARE_SIZE, SQUARE_SIZE);
-    ctx.stroke();
-    ctx.endPath();
     
   }
+  ctx.drawBoard();
 }
 
 
