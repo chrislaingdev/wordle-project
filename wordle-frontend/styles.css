@@ -1,5 +1,7 @@
 body {
   background-color: rgb(255, 255, 255);
+  font-family: sans-serif;
+  font-weight: bolder;
 }
 
 header{
@@ -14,31 +16,20 @@ header{
 }
 
 .canvas-container{
-
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: blueviolet;
-  
-  
 }
 
 .myCanvas {
   background-color: rgb(255, 255, 255);
-
 }
 
-
-
-.key-container{
+.keyboard{
   display: flex;
   flex-direction: column;
   align-items: center;
-
-
 }
-
-
 
 .keys-row{
   display: flex;
@@ -46,8 +37,7 @@ header{
   justify-content: center;
 }
 
-.letter-key{
-  background-color:  rgb(190, 190, 190);
+.letter-key, .function-key{
   font-size: 24px;
   width: 44px;
   height:60px;
@@ -58,23 +48,58 @@ header{
   flex-direction: row;
   align-items:center;
   justify-content: center;
-}
-.letter-key:hover{
-  background-color:  rgb(206, 206, 206);
   cursor: pointer;
 }
-
-.letter-key:active{
+.neutral{
+  background-color:  rgb(190, 190, 190);
+}
+.neutral:hover, .function-key:hover{
+  background-color:  rgb(206, 206, 206);
+}
+.neutral:active, .function-key:active{
   background-color:  rgb(230, 230, 230);
 }
 
-.function-key {
-  padding: 0px 30px;
 
+.correct{
+  background-color: rgb(108,169,101);
+}
+.correct:hover{
+  background-color: rgb(134,195,127);
+}
+.correct:active{
+  background-color: rgb(158,219,151);
 }
 
-.key-text{
-  font-weight: bolder;
+
+.almost{
+  background-color: rgb(200,182,83);
+}
+.almost:hover{
+  background-color: rgb(226,208,109);
+}
+.almost:active{
+  background-color: rgb(250,232,133);
+}
+
+
+.wrong{
+  background-color: rgb(120,124,127);
+}
+.wrong:hover{  background-color: rgb(146,150,153);
+}
+.wrong:active{  background-color: rgb(170,174,177);
+}
+
+
+
+.function-key {
+  padding: 0px 30px;
+}
+
+
+.text-white{
+  color: white;
 }
 
 
