@@ -51,20 +51,31 @@ class Board {
     this.currentLetterIndex = 0;
     this.currentRowIndex = 0;
     this.currentGuess = [];
-    this.correctKeys = [];
+    this.greenKeys = [];
+    this.yellowKeys = [];
     this.answer = [...answer];
     this.answerInfo = [];
+    this.indexesAlreadyColored = [];
     this.getAnswerInfo();
     this.createRows();
     this.calculateLocations();
   }
   getAnswerInfo(){
     let info = [];
-
+    let existingLetters = [];
+    
     for (const letter of this.answer){
-
-      info.push({letter:letter, amount:1});
-  
+      let count = 0;
+      for (const i of this.answer){
+        if ( i === letter){
+          count ++
+        }
+      }
+      if (!existingLetters.includes(letter)){
+        info.push({letter:letter, amount:count});
+        existingLetters.push(letter);
+      }
+      count = 0
     }
 
     this.answerInfo = info;
@@ -73,11 +84,19 @@ class Board {
   
   isHintsAvailable(guess){
     for (let l of this.answerInfo){
-      if (l.letter === guess && l.amount ===1){
-        l.amount --
+      if (l.letter === guess && l.amount > 0){
         return true
-      }else return false
-    }
+      }
+    } 
+    return false  
+  }
+
+  useHint(guess){
+    for (let l of this.answerInfo){
+      if (l.letter === guess && l.amount > 0){
+        l.amount --
+      }
+    } 
   }
 
   createRows(){
@@ -148,67 +167,36 @@ class Board {
     }
     this.drawBoard();
   }
-//  guess(){
-//    if (this.currentLetterIndex === 5){
-//
-//      for (let i = 0; i < 5; i++){
-//
-//        let keyId = "key-";
-//        let newClasses = "letter-key ";
-//        const letter = this.currentGuess[i] 
-//
-//        if (answer[i] === letter){
-//          this.rows[this.currentRowIndex].squares[i].squareColor = CORRECT_COLOR;
-//          newClasses += "correct";
-//
-//        }else if (answer[i] != letter && answer.includes(letter)){
-//          this.rows[this.currentRowIndex].squares[i].squareColor = ALMOST_COLOR;
-//          newClasses += "almost";
-//
-//        }else {
-//          this.rows[this.currentRowIndex].squares[i].squareColor = WRONG_COLOR;
-//          newClasses += "wrong";
-//        }
-//
-//        keyId += letter;
-//        this.updateKeyboard(letter, keyId, newClasses)
-//        if (newClasses === "letter-key correct"){
-//          this.correctKeys.push(letter);
-//        }
-//        this.rows[this.currentRowIndex].squares[i].letterColor = "white";
-//
-//      }
-//      this.drawBoard();
-//      this.currentGuess = [];
-//      this.currentRowIndex ++;
-//      this.currentLetterIndex = 0;
-//    }
-//  }
+
 
 
   findGreens(){
     for(let i = 0; i < 5; i++){
       const letter = this.currentGuess[i]
-      if (letter === this.answerInfo[i].letter){
+      if (letter === this.answer[i]){
         console.log("this matches and is green")
+        this.greenKeys.push(letter)
         this.updateSquare(CORRECT_COLOR, i)
-        this.updateKeyboard(letter, "correct")
-        this.correctKeys.push(letter)
-        this.answerInfo[i].amount = 0
-        
-        console.log(this.answerInfo[i].letter,this.answerInfo[i].amount)
+        this.updateKeyboard(letter)
+        this.indexesAlreadyColored.push(i);
+        this.useHint(letter)
+
       }
     }
+    console.log(this.indexesAlreadyColored);
   }
 
   findYellows(){
     for(let i =0; i <5; i++){
       const letter = this.currentGuess[i]
-      if (this.answer.includes(letter) && this.isHintsAvailable(letter) && this.answerInfo[i].letter != letter){
+      if (!this.indexesAlreadyColored.includes(i) && this.answer.includes(letter) && this.isHintsAvailable(letter) && this.answer[i] != letter){
         console.log("this it a yellow")
+        this.yellowKeys.push(letter)
         this.updateSquare(ALMOST_COLOR, i)
-        this.updateKeyboard(letter, "almost")
-        console.log(this.answerInfo[i].letter,this.answerInfo[i].amount)
+        this.updateKeyboard(letter)
+        this.indexesAlreadyColored.push(i);
+        this.useHint(letter)
+
       }
     }
   }
@@ -216,10 +204,10 @@ class Board {
   findGrays(){
     for(let i = 0; i < 5; i++){
       const letter = this.currentGuess[i]
-      if (!this.answer.includes(letter) || this.answer.includes(letter) && !this.isHintsAvailable(letter) && this.answerInfo[i].letter != letter){
+      if (!this.indexesAlreadyColored.includes(i) ){
         console.log("grays have been made")
         this.updateSquare(WRONG_COLOR, i)
-        this.updateKeyboard(letter, "wrong")
+        this.updateKeyboard(letter)
       }
     }
   }
@@ -245,16 +233,20 @@ class Board {
       this.currentRowIndex ++;
       this.currentLetterIndex = 0;
       this.getAnswerInfo();
+      this.indexesAlreadyColored = [];
     }
   }
 
-  updateKeyboard(letter, classType){
-    if (!this.correctKeys.includes(letter)){
-      document.getElementById("key-" + letter).className = "letter-key " + classType
-    }
+  updateKeyboard(letter){
+    if (!this.greenKeys.includes(letter) && !this.yellowKeys.includes(letter)){
+      document.getElementById("key-" + letter).className = "letter-key " + "wrong"
+    } else if(this.yellowKeys.includes(letter) && !this.greenKeys.includes(letter)){
+      document.getElementById("key-" + letter).className = "letter-key " + "almost"
+    } else(
+      document.getElementById("key-" + letter).className = "letter-key " + "correct"
+    )
     document.getElementById("letter-" + letter).className = "text-white";
   }
-  
 }
 
 let board = new Board(correctAnswer);
