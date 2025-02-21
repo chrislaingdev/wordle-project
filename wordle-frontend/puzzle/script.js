@@ -1,6 +1,5 @@
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
-ctx.font = "50px sans-serif";
 const CORRECT_COLOR = "rgb(108,169,101)"
 const ALMOST_COLOR = "rgb(200,182,83)"
 const WRONG_COLOR = "rgb(120,124,127)"
@@ -8,10 +7,6 @@ const SQUARE_SIZE = 100;
 const ROW_GAP = 10;
 
 let correctAnswer = "STARS"
-
-
-
-
 
 
 
@@ -53,13 +48,46 @@ class Board {
     this.currentGuess = [];
     this.greenKeys = [];
     this.yellowKeys = [];
+    this.keysToReset = new Set([]);
+    this.answerText = answer;
     this.answer = [...answer];
     this.answerInfo = [];
     this.indexesAlreadyColored = [];
     this.getAnswerInfo();
     this.createRows();
     this.calculateLocations();
+    this.guessedCorrect = false;
+    this.gameOver = false;
+    this.showValuesInConsole = false
+    this.printValuesToConsole();
   }
+
+  printValuesToConsole(){
+    if(this.showValuesInConsole){
+      console.log("this.rows: ",this.rows)  
+      console.log("this.currentLetterIndex: ",this.currentLetterIndex)
+      console.log("this.currentRowIndex: ",this.currentRowIndex)
+      console.log("this.currentGuess: ",this.currentGuess)  
+      console.log("this.greenKeys: ",this.greenKeys)  
+      console.log("this.yellowKeys: ",this.yellowKeys)  
+      console.log("this.keysToReset: ",this.keysToReset)
+      console.log("this.answerText: ", this.answerText)
+      console.log("this.guessedCorrect: ", this.guessedCorrect)
+      console.log("this.answer: ",this.answer)
+      console.log("this.answerInfo: ",this.answerInfo)
+      console.log("this.indexesAlreadyColored: ",this.indexesAlreadyColored)  
+      console.log("this.gameOver: ",this.gameOver)
+    }
+  }
+
+
+  resetKeys(){
+    this.keysToReset.forEach((letter) =>{
+      document.getElementById("key-" + letter).className = "letter-key " + "neutral"
+      document.getElementById("letter-" + letter).className = "key-text";
+    })
+   }
+
   getAnswerInfo(){
     let info = [];
     let existingLetters = [];
@@ -77,9 +105,7 @@ class Board {
       }
       count = 0
     }
-
     this.answerInfo = info;
-    console.log(this.answerInfo + "test")
   }
   
   isHintsAvailable(guess){
@@ -97,6 +123,16 @@ class Board {
         l.amount --
       }
     } 
+  }
+
+  isGuessCorrect(){
+    for (let i = 0; i < 5; i++){
+      if (this.currentGuess[i] !== this.answer[i]){
+        return false
+      }
+    }
+    this.guessedCorrect = true;
+    return true
   }
 
   createRows(){
@@ -137,6 +173,7 @@ class Board {
 
   drawBoard(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.font = "50px sans-serif";
     
     for (let i = 0; i <6 ; i++){
       for (let j = 0; j < 5; j++){
@@ -148,24 +185,50 @@ class Board {
         ctx.fillText(this.rows[i].squares[j].letter, this.rows[i].squares[j].letterX, this.rows[i].squares[j].letterY);
       }
     }    
+    this.printValuesToConsole();
+  }
+
+  drawNewGamePrompt(){
+    ctx.font = "42px sans-serif";
+    if (!this.guessedCorrect){
+      ctx.fillStyle = "rgb(0,0,0)"
+      ctx.fillRect(canvas.width/2 - SQUARE_SIZE, SQUARE_SIZE/2, SQUARE_SIZE * 2, SQUARE_SIZE)
+      ctx.fillStyle = "white";
+      ctx.fillText(this.answerText, canvas.width/2 - SQUARE_SIZE + ROW_GAP * 3, SQUARE_SIZE + ROW_GAP * 2);
+    }
+    ctx.fillStyle = "rgba(255, 255, 255, 0.86)"
+    ctx.fillRect(0,canvas.height / 2 - (SQUARE_SIZE/2), canvas.width, SQUARE_SIZE);
+    ctx.strokeRect(0,canvas.height / 2 - (SQUARE_SIZE/2), canvas.width, SQUARE_SIZE);
+    ctx.fillStyle = "black";
+    ctx.fillText("Click the board to play again!", ROW_GAP, canvas.height / 2 + ROW_GAP);
+
+
+  }
+
+
+
+  newGamePrompt(){
+    this.gameOver = true;
+    this.drawNewGamePrompt();
+
   }
 
   guessLetter(letter){
-    if (this.currentLetterIndex < 5){
+    if (this.currentLetterIndex < 5 && !this.gameOver){
       this.rows[this.currentRowIndex].squares[this.currentLetterIndex].letter = letter;
       this.currentGuess.push(letter);
       this.currentLetterIndex ++;
+      this.drawBoard();
     }
-    this.drawBoard();
   }
 
   backspace(){
-    if (this.currentLetterIndex > 0){
+    if (this.currentLetterIndex > 0 && !this.gameOver){
       this.currentLetterIndex --;
       this.currentGuess.pop();
       this.rows[this.currentRowIndex].squares[this.currentLetterIndex].letter = ""; 
+      this.drawBoard();
     }
-    this.drawBoard();
   }
 
 
@@ -174,23 +237,19 @@ class Board {
     for(let i = 0; i < 5; i++){
       const letter = this.currentGuess[i]
       if (letter === this.answer[i]){
-        console.log("this matches and is green")
         this.greenKeys.push(letter)
         this.updateSquare(CORRECT_COLOR, i)
         this.updateKeyboard(letter)
         this.indexesAlreadyColored.push(i);
         this.useHint(letter)
-
       }
     }
-    console.log(this.indexesAlreadyColored);
   }
 
   findYellows(){
     for(let i =0; i <5; i++){
       const letter = this.currentGuess[i]
       if (!this.indexesAlreadyColored.includes(i) && this.answer.includes(letter) && this.isHintsAvailable(letter) && this.answer[i] != letter){
-        console.log("this it a yellow")
         this.yellowKeys.push(letter)
         this.updateSquare(ALMOST_COLOR, i)
         this.updateKeyboard(letter)
@@ -205,7 +264,6 @@ class Board {
     for(let i = 0; i < 5; i++){
       const letter = this.currentGuess[i]
       if (!this.indexesAlreadyColored.includes(i) ){
-        console.log("grays have been made")
         this.updateSquare(WRONG_COLOR, i)
         this.updateKeyboard(letter)
       }
@@ -219,7 +277,7 @@ class Board {
   }
 
   guess(){
-    if (this.currentLetterIndex === 5){
+    if (this.currentLetterIndex === 5 && !this.gameOver){
 
       //do greens first
       this.findGreens()
@@ -229,11 +287,20 @@ class Board {
       this.findGrays()
 
       this.drawBoard();
-      this.currentGuess = [];
-      this.currentRowIndex ++;
-      this.currentLetterIndex = 0;
-      this.getAnswerInfo();
-      this.indexesAlreadyColored = [];
+
+      if (this.isGuessCorrect() || this.currentRowIndex === 5){
+        console.log("newgame")
+        this.newGamePrompt();
+      }else{
+        //reset values for next guess
+        this.currentGuess = [];
+        this.currentRowIndex ++;
+        this.currentLetterIndex = 0;
+        this.getAnswerInfo();
+        this.indexesAlreadyColored = [];
+
+      }
+
     }
   }
 
@@ -246,11 +313,19 @@ class Board {
       document.getElementById("key-" + letter).className = "letter-key " + "correct"
     )
     document.getElementById("letter-" + letter).className = "text-white";
+    this.keysToReset.add(letter)
+
   }
 }
 
 let board = new Board(correctAnswer);
 board.drawBoard();
+
+function newGame(answer){
+  board.resetKeys();
+  board = new Board(answer)
+  board.drawBoard();
+}
 
 
 const letterKeys = document.querySelectorAll('.letter-key');
@@ -270,6 +345,13 @@ document.querySelectorAll(".function-key").forEach(key => {
     key.addEventListener("click", () =>{
       board.guess();
     })
+  }
+})
+
+canvas.addEventListener('click', function(event){
+  if (board.gameOver){
+    newGame("GHOST")
+
   }
 })
 

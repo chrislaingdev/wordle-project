@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wordy | Reset password</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1 class="title-text">WORDY</h1>
+  </header>
+  <div class="page-container">
+    <form class="verification-form" id="verification-form">
+      <div class="verification-form-header-container">
+        <h1 class="verification-form-header">Password reset</h1><br>
+        <h3 class="verification-form-small-header" id="verification-form-small-header">Enter your email to receive a verification code to reset your password.</h3>
+        <p class="link-text" style="display: none;" id="request-code-link"><a href="https://www.google.com/"> Didn't get a code? Send another.</a></p>
+      </div>
+      <div class="form-ui" id="form-ui">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="example@email.com">
+        <button id="submit-button" type="submit" class="submit-button">Send me a code</button>
+        <p class="link-text"><a href="https://www.google.com/">Don't need a password reset? Login here!</a></p>
+      </div>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

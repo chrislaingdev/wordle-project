@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wordy | Verify new account</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1 class="title-text">WORDY</h1>
+  </header>
+  <div class="page-container">
+    <form class="verification-form" id="verification-form">
+      <div class="verification-header-container">
+        <h1 class="verification-header">Verify your account</h1><br>
+        <h3 class="verification-small-header">We sent a verification code to your email!</h3>
+      </div>
+      <p class="form-warning" id="form-warning"></p>
+      <label for="code">Enter your verification code:</label>
+      <input type="text" id="code" name="code" placeholder="enter code here">
+      <button id="verification-button" type="submit" class="verification-button">Submit code</button>
+      <p class="link-text">Didn't receive the code? <a href="https://www.google.com/" id="resend-code-link">Send me a new code.</p></label>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
